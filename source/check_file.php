@@ -1,14 +1,14 @@
 <?php
 /*
 1、将此文件放到安装包或补丁包下 和ecshop、appserver同一级目录
-2、检测时 先将安装包或补丁包解压后 放到生产环境的ecshop目录下（路径例如:ecshop/patch文件夹/check_file.php） 执行下此文件 
+2、检测时 先将安装包或补丁包解压后 放到生产环境的ecshop目录下（路径例如:ecshop/patch文件夹/check_file.php） 执行下此文件
 目的：检测客户生产环境文件是否有二开，防止客户系统有二开，也不清楚改了哪些文件，升级覆盖文件时，导致二开文件被覆盖掉
 */
 set_time_limit(0);
 
 $extension = array('php','html','js');
 $dir = array('ecshop', 'appserver');
-$pre = '../../';
+$pre = './';
 
 echo('<meta charset="utf-8">');
 echo("<pre>");
@@ -45,7 +45,7 @@ if (file_exists($pre.'ecshop/h5/version.txt')) {
 }
 
 if ($app_version == $h5_version and $h5_version == RELEASE) {
-    
+
 }else{
     echo("注意：ecshop的version、appserver的version、h5的version不完全一致\r\n");echo("<br>");
 }
@@ -81,7 +81,7 @@ foreach ($patchFileList as $file) {
     $currentFile = $pre.$file;
     if (file_exists($currentFile)) {
         if (md5_file($currentFile) == $fileArr[$file]) {
-            // echo($file . " is not modified"); 
+            // echo($file . " is not modified");
             // echo("\r\n");
         }else{
             // echo('<meta charset="utf-8">');
@@ -111,7 +111,7 @@ function listFiles( $from = '.', $extension = array(), $md5_file = NULL)
         return false;
     }
     $files = array();
-    
+
     while( NULL !== ($dir = array_pop( $dirs)))
     {
         if( $dh = opendir($dir))
